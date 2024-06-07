@@ -28,7 +28,6 @@ export class SpaceFlightNewsApiService {
   }
 
   public getMoreItems(type: ItemsUrlType) {
-    this.articlesQueryParams.limit = 500;
     let totalPages = this.getTotalPages(this.totalCount$.getValue(), this.articlesQueryParams.limit);
     let currentPage = this.getCurrentPage(this.articlesQueryParams.offset, this.articlesQueryParams.limit);
 
