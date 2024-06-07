@@ -1,32 +1,68 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface RequestOptions {
+  headers?: HttpHeaders | {
+    [header: string]: string | string[];
+  };
+  context?: HttpContext;
+  observe?: any;
+  params?: HttpParams | {
+    [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
+  };
+  reportProgress?: boolean;
+  responseType?: 'json';
+  withCredentials?: boolean;
+  transferCache?: {
+    includeHeaders?: string[];
+  } | boolean;
+}
+
+export enum ItemsUrlType {
+  ARTICLES = '/articles',
+  NEWS = '/news',
+  EVENTS = '/events',
+  LAUNCHES = '/launches'
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private baseUrl = 'https://api.spaceflightnewsapi.net/v3';
+  private baseUrl = 'https://api.spaceflightnewsapi.net/v4';
+
+  private config: RequestOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    observe: 'body',
+    params: {},
+    responseType: 'json',
+  };
 
   constructor(
     private http: HttpClient
   ) {
   }
 
-  public doGetRequest<R>(path: string, options?: any) {
-    return this.http.get<R>(this.buildUrl(path), options);
+  public doGetRequest<T>(path: string, params?: any): Observable<T> {
+    const config = { ...this.config, params: { ...params } };
+    return this.http.get<T>(this.buildUrl(path), config);
   }
 
-  public doPostRequest<R>(path: string, body: any, options?: any) {
-    return this.http.post<R>(this.buildUrl(path), body, options);
+  public doPostRequest<T>(path: string, body: any, params?: any): Observable<T> {
+    const config = { ...this.config, params: { ...params } };
+    return this.http.post<T>(this.buildUrl(path), body, config);
   }
 
-  public doPutRequest<R>(path: string, body: any, options?: any) {
-    return this.http.put<R>(this.buildUrl(path), body, options);
+  public doPutRequest<T>(path: string, body: any, params?: any): Observable<T> {
+    const config = { ...this.config, params: { ...params } };
+    return this.http.put<T>(this.buildUrl(path), body, config);
   }
 
-  public doDeleteRequest<R>(path: string) {
-    return this.http.delete<R>(this.buildUrl(path));
+  public doDeleteRequest(path: string) {
+    const config = { ...this.config };
+    return this.http.delete(this.buildUrl(path), config);
   }
 
   private buildUrl(path: string) {

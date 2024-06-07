@@ -1,0 +1,31 @@
+<mat-card class="card">
+    <div class="card-image">
+        <!--        TODO: add img optimization-->
+        <img mat-card-image
+             [ngSrc]="article()?.image_url || '' "
+             alt="{{article()?.news_site}}"
+             fill
+             priority
+        >
+    </div>
+    <mat-card-content class="card-content">
+        <div class="card-date">
+            <mat-icon svgIcon="calendar" />
+            <!--            TODO: date format accordingly the scratch using date-fns -->
+            <span>{{ article()?.published_at | date:'MMM dd, yyyy' }}</span>
+        </div>
+        <!--        TODO: highlight search words fo title and summary-->
+        <mat-card-title class="card-title">{{ article()?.title }}</mat-card-title>
+
+        <!--            TODO: trim and ellipsis dynamic text -->
+        <p class="card-summary">
+            {{ article()?.summary }}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <a class="card-read-more" href="#">
+            Read more
+            <mat-icon fontIcon="arrow_forward" />
+        </a>
+    </mat-card-actions>
+</mat-card>

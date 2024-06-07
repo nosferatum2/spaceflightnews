@@ -3,12 +3,12 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'articles',
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    loadComponent: () => import('@pages/home/home.component').then(c => c.HomeComponent)
+    path: 'articles',
+    loadComponent: () => import('@pages/articles/articles.component').then(c => c.ArticlesComponent)
   },
   {
     path: 'article/:id',
@@ -16,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'articles',
     pathMatch: 'full',
   }
 ];

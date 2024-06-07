@@ -1,0 +1,49 @@
+:host {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.filter-container {
+  // TODO: remove after fix theme
+  font-family: Montserrat;
+  padding: 50px 75px 0;
+}
+
+.filter-label {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.5px;
+}
+
+.search-input {
+  min-width: 600px;
+  border-radius: 5px;
+
+  ::ng-deep .mdc-text-field--outlined {
+    height: 50px;
+  }
+}
+
+.search-result-score {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.5px;
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 45px;
+  width: 100%;
+  padding: 45px 75px 65px 75px;
+}
+
+
