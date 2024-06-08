@@ -47,7 +47,7 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.articles$ = this.spaceFlightNewsApiService.items$;
-    this.spaceFlightNewsApiService.getItems(ItemsUrlType.ARTICLES);
+    this.spaceFlightNewsApiService.getItemsInit(ItemsUrlType.ARTICLES);
 
     // TODO: implement Filter search
     this.filterSearch.valueChanges

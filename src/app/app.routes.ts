@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { dataResolver } from '@shared/services/utils/data-resolver';
 
 export const routes: Routes = [
   {
@@ -11,7 +12,8 @@ export const routes: Routes = [
     loadComponent: () => import('@pages/articles/articles.component').then(c => c.ArticlesComponent)
   },
   {
-    path: 'article/:id',
+    path: 'articles/:id',
+    resolve: { article: dataResolver },
     loadComponent: () => import('@pages/article/article.component').then(c => c.ArticleComponent)
   },
   {
