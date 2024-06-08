@@ -1,1 +1,24 @@
-<p>ArticlesComponent works!</p>
+<div class="article-container">
+    <div class="article-header">
+        <img
+            [ngSrc]="article.image_url"
+            [alt]="article.news_site"
+            fill
+            priority
+        >
+    </div>
+    <div class="article-description">
+        <div class="article-title">
+            {{ article.title }}
+        </div>
+        <div class="article-summary">
+            {{ article.summary }}
+        </div>
+    </div>
+    <div class="controls">
+        <a [routerLink]="['article']" class="back-home-btn">
+            <mat-icon fontIcon="arrow_back" />
+            Back to homepage
+        </a>
+    </div>
+</div>

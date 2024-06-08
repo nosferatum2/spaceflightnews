@@ -5,7 +5,9 @@ import { Article, PaginatedArticleList } from '@shared/models/article.model';
 import { BehaviorSubject } from 'rxjs';
 import { ArticlesQueryParams } from './model/queries';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SpaceFlightNewsApiService {
 
   public items$ = new BehaviorSubject<Article[]>([]);
@@ -18,13 +20,16 @@ export class SpaceFlightNewsApiService {
 
   private apiService = inject(ApiService);
 
-  public getItems(type: ItemsUrlType) {
-    this.apiService.doGetRequest<PaginatedArticleList>(type, this.articlesQueryParams)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+  public getItemsInit(type: ItemsUrlType) {
+    this.getItems(type)
       .subscribe(res => {
         this.totalCount$.next(res.count);
         this.items$.next(res.results);
       });
+  }
+
+  public getItemById<T>(id: number) {
+    return this.apiService.doGetRequest<T>(`${ItemsUrlType.ARTICLES}/${id}`);
   }
 
   public getMoreItems(type: ItemsUrlType) {
@@ -37,12 +42,16 @@ export class SpaceFlightNewsApiService {
 
     this.articlesQueryParams.offset = this.getPageOffset(currentPage + 1, this.articlesQueryParams.limit);
 
-    this.apiService.doGetRequest<PaginatedArticleList>(type, this.articlesQueryParams)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.getItems(type)
       .subscribe(res => {
         this.totalCount$.next(res.count);
         this.items$.next([...this.items$.getValue(), ...res.results]);
       });
+  }
+
+  private getItems(type: ItemsUrlType) {
+    return this.apiService.doGetRequest<PaginatedArticleList>(type, this.articlesQueryParams)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   private getTotalPages(totalCount: number, pageLimit: number) {

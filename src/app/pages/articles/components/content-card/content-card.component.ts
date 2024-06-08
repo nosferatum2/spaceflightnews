@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Article } from '@shared/models/article.model';
 import { DatePipe, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-content-card',
@@ -15,7 +16,8 @@ import { DatePipe, NgOptimizedImage } from '@angular/common';
     NgOptimizedImage,
     DatePipe,
     MatAnchor,
-    MatIconAnchor
+    MatIconAnchor,
+    RouterLink
   ],
   templateUrl: './content-card.component.html',
   styleUrl: './content-card.component.scss'

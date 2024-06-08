@@ -23,7 +23,7 @@
         </p>
     </mat-card-content>
     <mat-card-actions>
-        <a class="card-read-more" href="#">
+        <a [routerLink]="[article()?.id]" class="card-read-more">
             Read more
             <mat-icon fontIcon="arrow_forward" />
         </a>
