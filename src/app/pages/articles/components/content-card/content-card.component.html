@@ -1,31 +1,39 @@
-<mat-card class="card">
-    <div class="card-image">
-        <!--        TODO: add img optimization-->
-        <img mat-card-image
-             [ngSrc]="article()?.image_url || '' "
-             alt="{{article()?.news_site}}"
-             fill
-             priority
-        >
-    </div>
-    <mat-card-content class="card-content">
-        <div class="card-date">
-            <mat-icon svgIcon="calendar" />
-            <!--            TODO: date format accordingly the scratch using date-fns -->
-            <span>{{ article()?.published_at | date:'MMM dd, yyyy' }}</span>
+@if (article() !== null) {
+    <mat-card class="card">
+        <div class="card-image">
+            <!--        TODO: add img optimization-->
+            <img mat-card-image
+                 [ngSrc]="article()?.image_url || '' "
+                 alt="{{article()?.news_site}}"
+                 fill
+                 priority
+            >
         </div>
-        <!--        TODO: highlight search words fo title and summary-->
-        <mat-card-title class="card-title">{{ article()?.title }}</mat-card-title>
-
-        <!--            TODO: trim and ellipsis dynamic text -->
-        <p class="card-summary">
-            {{ article()?.summary }}
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <a [routerLink]="[article()?.id]" class="card-read-more">
-            Read more
-            <mat-icon fontIcon="arrow_forward" />
-        </a>
-    </mat-card-actions>
-</mat-card>
+        <mat-card-content class="card-content">
+            <div class="card-date">
+                <mat-icon svgIcon="calendar" />
+                <!--            TODO: date format accordingly the scratch using date-fns -->
+                <span>{{ article()?.published_at | date:'MMM dd, yyyy' }}</span>
+            </div>
+            <!--        TODO: highlight search words fo title and summary-->
+            <mat-card-title class="card-title">
+                {{
+                    ((article()?.title || '' | slice:0:100)
+                        + ((article()?.title?.length || 0) > 100 ? '...' : ''))
+                }}
+            </mat-card-title>
+            <p class="card-summary">
+                {{
+                    (article()?.summary | slice:0:100)
+                        + ((article()?.summary?.length || 0) > 100 ? '...' : '')
+                }}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <a [routerLink]="[article()?.id]" class="card-read-more">
+                Read more
+                <mat-icon fontIcon="arrow_forward" />
+            </a>
+        </mat-card-actions>
+    </mat-card>
+}

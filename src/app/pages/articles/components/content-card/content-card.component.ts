@@ -3,7 +3,7 @@ import { MatAnchor, MatButton, MatIconAnchor } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Article } from '@shared/models/article.model';
-import { DatePipe, NgOptimizedImage } from '@angular/common';
+import { DatePipe, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -17,7 +17,8 @@ import { RouterLink } from '@angular/router';
     DatePipe,
     MatAnchor,
     MatIconAnchor,
-    RouterLink
+    RouterLink,
+    SlicePipe
   ],
   templateUrl: './content-card.component.html',
   styleUrl: './content-card.component.scss'
