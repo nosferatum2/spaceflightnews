@@ -1,10 +1,11 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatAnchor, MatButton, MatIconAnchor } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { Article } from '@shared/models/article.model';
 import { DatePipe, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { HighlightTextPipe } from '@pages/articles/components/content-card/highlight-text.pipe';
+import { ArticleView } from '@pages/articles/components/content-card/article-view.model';
 
 @Component({
   selector: 'app-content-card',
@@ -18,13 +19,15 @@ import { RouterLink } from '@angular/router';
     MatAnchor,
     MatIconAnchor,
     RouterLink,
-    SlicePipe
+    SlicePipe,
+    HighlightTextPipe
   ],
   templateUrl: './content-card.component.html',
-  styleUrl: './content-card.component.scss'
+  styleUrl: './content-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentCardComponent {
 
-  article = input<Article | null>(null);
+  article = input<ArticleView | null>(null);
 
 }

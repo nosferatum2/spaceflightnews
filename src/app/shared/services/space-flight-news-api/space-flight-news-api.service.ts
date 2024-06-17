@@ -21,6 +21,8 @@ export class SpaceFlightNewsApiService {
   private apiService = inject(ApiService);
 
   public getItemsInit(type: ItemsUrlType) {
+    this.articlesQueryParams.build();
+
     this.getItems(type)
       .subscribe(res => {
         this.totalCount$.next(res.count);
@@ -30,6 +32,15 @@ export class SpaceFlightNewsApiService {
 
   public getItemById<T>(id: number) {
     return this.apiService.doGetRequest<T>(`${ItemsUrlType.ARTICLES}/${id}`);
+  }
+
+  public getItemsByQuery(type: ItemsUrlType, params: ArticlesQueryParams) {
+    this.apiService.doGetRequest<PaginatedArticleList>(type, this.articlesQueryParams.buildQuery(params))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        this.items$.next(res.results);
+        this.totalCount$.next(res.count);
+      });
   }
 
   public getMoreItems(type: ItemsUrlType) {

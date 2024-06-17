@@ -1,0 +1,8 @@
+.search-input {
+  min-width: 600px;
+  border-radius: 5px;
+
+  ::ng-deep .mdc-text-field--outlined {
+    height: 50px;
+  }
+}

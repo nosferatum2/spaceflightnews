@@ -21,16 +21,7 @@
   line-height: 19.5px;
 }
 
-.search-input {
-  min-width: 600px;
-  border-radius: 5px;
-
-  ::ng-deep .mdc-text-field--outlined {
-    height: 50px;
-  }
-}
-
-.search-result-score {
+.result-score {
   margin-top: 20px;
   margin-bottom: 5px;
   font-size: 16px;
