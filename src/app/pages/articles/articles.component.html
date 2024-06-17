@@ -1,23 +1,18 @@
 <div class="content">
     <div class="filter-container">
         <div class="filter-label">Filter keywords</div>
-        <mat-form-field appearance="outline" class="search-input">
-            <mat-icon matPrefix fontIcon="search" />
-            <input
-                matInput
-                placeholder="What are you looking for today?"
-                [formControl]="filterSearch"
-            >
-        </mat-form-field>
-        <div class="search-result-score">
-            Results: 0
+        <app-filter-search (filterChanged)="onFilterChanged($event)" />
+        <div class="result-score">
+            Results: {{ this.articlesCount$ | async }}
         </div>
         <mat-divider></mat-divider>
     </div>
     <div class="content-container">
         <!--        TODO: add virtualized list with data fetching-->
-        @for (article of articles$ | async; track trackByFn($index, article)) {
-            <app-content-card [article]="article"></app-content-card>
+        @for (article of articles$ | async; track trackByFn($index, article.data)) {
+            <app-content-card
+                [article]="article"
+            />
         }
     </div>
 </div>

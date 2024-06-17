@@ -3,8 +3,8 @@
         <div class="card-image">
             <!--        TODO: add img optimization-->
             <img mat-card-image
-                 [ngSrc]="article()?.image_url || '' "
-                 alt="{{article()?.news_site}}"
+                 [ngSrc]="article()?.data?.image_url || '' "
+                 alt="{{article()?.data?.news_site}}"
                  fill
                  priority
             >
@@ -13,24 +13,23 @@
             <div class="card-date">
                 <mat-icon svgIcon="calendar" />
                 <!--            TODO: date format accordingly the scratch using date-fns -->
-                <span>{{ article()?.published_at | date:'MMM dd, yyyy' }}</span>
+                <span>{{ article()?.data?.published_at | date:'MMM dd, yyyy' }}</span>
             </div>
-            <!--        TODO: highlight search words fo title and summary-->
-            <mat-card-title class="card-title">
-                {{
-                    ((article()?.title || '' | slice:0:100)
-                        + ((article()?.title?.length || 0) > 100 ? '...' : ''))
-                }}
-            </mat-card-title>
-            <p class="card-summary">
-                {{
-                    (article()?.summary | slice:0:100)
-                        + ((article()?.summary?.length || 0) > 100 ? '...' : '')
-                }}
-            </p>
+            <mat-card-title
+                class="card-title"
+                [innerHTML]="((article()?.data?.title || '' | slice:0:100)
+                        + ((article()?.data?.title?.length || 0) > 100 ? '...' : ''))
+                        | highlightText: article()?.searchValue || null"
+            />
+            <p
+                class="card-summary"
+                [innerHTML]="(article()?.data?.summary | slice:0:100)
+                        + ((article()?.data?.summary?.length || 0) > 100 ? '...' : '')
+                        | highlightText: article()?.searchValue || null"
+            ></p>
         </mat-card-content>
         <mat-card-actions>
-            <a [routerLink]="[article()?.id]" class="card-read-more">
+            <a [routerLink]="[article()?.data?.id]" class="card-read-more">
                 Read more
                 <mat-icon fontIcon="arrow_forward" />
             </a>
